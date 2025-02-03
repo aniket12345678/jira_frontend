@@ -1,4 +1,5 @@
 import React from 'react'
+import AuthLayout from '../../components/AuthLayout'
 
 const SignUp = () => {
     return (
@@ -8,4 +9,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default AuthLayout(SignUp)
