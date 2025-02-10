@@ -2,63 +2,68 @@ import React from 'react'
 import './auth.css'
 import { Link } from 'react-router-dom'
 import AuthLayout from '../../components/AuthLayout'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { Form } from 'react-bootstrap'
 
 const SignIn = () => {
-    return (
-        <div>
-            <section className="vh-100">
-                <div className="container-fluid h-custom">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-9 col-lg-6 col-xl-5">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="Sample image" />
-                        </div>
-                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form>
-                                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                    <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-facebook-f" />
-                                    </button>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-twitter" />
-                                    </button>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-floating mx-1">
-                                        <i className="fab fa-linkedin-in" />
-                                    </button>
-                                </div>
-                                <div className="divider d-flex align-items-center my-4">
-                                    <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                                </div>
-                                {/* Email input */}
-                                <div data-mdb-input-init className="form-outline mb-4">
-                                    <input type="email" id="form3Example3" className="form-control form-control-lg" placeholder="Enter a valid email address" />
-                                    <label className="form-label" htmlFor="form3Example3">Email address</label>
-                                </div>
-                                {/* Password input */}
-                                <div data-mdb-input-init className="form-outline mb-3">
-                                    <input type="password" id="form3Example4" className="form-control form-control-lg" placeholder="Enter password" />
-                                    <label className="form-label" htmlFor="form3Example4">Password</label>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    {/* Checkbox */}
-                                    <div className="form-check mb-0">
-                                        <input className="form-check-input me-2" type="checkbox" defaultValue id="form2Example3" />
-                                        <label className="form-check-label" htmlFor="form2Example3">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                    <a href="#!" className="text-body">Forgot password?</a>
-                                </div>
-                                <div className="text-center text-lg-start mt-4 pt-2">
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Login</button>
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account?<Link to={'/signup'}>Register</Link></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    const initialValues = {
+        email: '',
+        password: ''
+    }
+    const validateFeilds = Yup.object().shape({
+        email: Yup.string().required('Enter email'),
+        password: Yup.string().required('Enter password'),
+    })
 
+    const { values, errors, handleSubmit, handleChange } = useFormik({
+        initialValues: initialValues,
+        validationSchema: validateFeilds,
+        onSubmit: (values) => {
+            console.log('values:- ', values);
+        }
+    });
+
+    return (
+        <div className="card-body p-5 text-center">
+            <div className="mb-md-2 mt-md-4 pb-5">
+                <h2 className="fw-bold mb-3 text-uppercase">Login</h2>
+                <Form onSubmit={handleSubmit}>
+                    <div data-mdb-input-init className="form-outline form-white mb-4">
+                        <input
+                            type="email"
+                            placeholder='Email'
+                            className="form-control form-control-lg"
+                            onChange={handleChange}
+                            name='email'
+                            value={values.email}
+                        />
+                        {
+                            errors.email && <div>Enter email</div>
+                        }
+                    </div>
+                    <div data-mdb-input-init className="form-outline form-white mb-4">
+                        <input
+                            type="password"
+                            placeholder='Password'
+                            className="form-control form-control-lg"
+                            onChange={handleChange}
+                            name='password'
+                            value={values.password}
+                        />
+                        {
+                            errors.password && <div>Enter Password</div>
+                        }
+                    </div>
+                    <p className="small mb-3 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
+                    <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                </Form>
+            </div>
+            <div>
+                <p className="mb-0">Don't have an account? &nbsp;
+                    <Link to={'/signup'}>SignUp</Link>
+                </p>
+            </div>
         </div>
     )
 }
