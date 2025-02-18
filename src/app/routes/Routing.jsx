@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Home from '../pages/Home'
-import Dummy from '../pages/dummy/Dummy'
 import Employee from '../pages/Employee'
 import SignIn from '../pages/auth/SignIn'
 import SignUp from '../pages/auth/SignUp'
@@ -19,7 +18,6 @@ const Routing = () => {
                 <Routes>
                     <Route path='/' element={<SignIn />} />
                     <Route path='/signup' element={<SignUp />} />
-                    <Route path='/dummy' element={<Dummy />} />
                     <Route element={<ProtectedRoutes />}>
                         <Route path='/dashboard' element={<Layout Page={Home} />} />
                         <Route path='/employee' element={<Layout Page={Employee} />} />

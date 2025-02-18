@@ -5,7 +5,7 @@ const AuthLayout = (Component) => {
     return function WrappedComponent(props) {
         const [authUser] = useState(true);
         if (authUser) {
-            return <Navigate to={'/home'}/>
+            return <Navigate to={'/dashboard'}/>
         }
         return (
             <div>
