@@ -1,9 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import Home from '../pages/Home'
+import Employee from '../pages/Employee'
 import SignIn from '../pages/auth/SignIn'
 import SignUp from '../pages/auth/SignUp'
 import Layout from '../components/Layout'
+import ProtectedRoutes from '../components/ProtectedRoutes'
+
+import '../media/style/style.css';
+import '../media/style/css/bootstrap.min.css'
 
 const Routing = () => {
     return (
@@ -12,10 +18,12 @@ const Routing = () => {
                 <Routes>
                     <Route path='/' element={<SignIn />} />
                     <Route path='/signup' element={<SignUp />} />
-                    <Route path='/home' element={<Layout Page={Home} />} />
+                    <Route element={<ProtectedRoutes />}>
+                        <Route path='/dashboard' element={<Layout Page={Home} />} />
+                        <Route path='/employee' element={<Layout Page={Employee} />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
-
         </div>
     )
 }

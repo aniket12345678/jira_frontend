@@ -1,12 +1,16 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import Sidebar from './Sidebar'
 
 const Layout = ({ Page }) => {
     return (
         <div>
             <Header />
-            <Page />
+            <Sidebar />
+            <main id='main' className='main'>
+                <Page />
+            </main>
             <Footer />
         </div>
     )
